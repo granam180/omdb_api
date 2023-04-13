@@ -1,0 +1,23 @@
+{
+  "name": "movie_search_app",
+  "version": "1.0.0",
+  "description": "Open Movie Db API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "build": "echo 'Nothing to build for this app.'"
+  },
+  "author": "Joey Bonneville",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.7.4",
+    "express": "^4.17.1",
+    "node": "^14.4.0",
+    "node-fetch": "^2.6.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  }
+}

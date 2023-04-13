@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+<!-- <h1>Movies Database!!!</h1> -->
+
+<ul>
+
+<% data["Search"].forEach(function(movie) { %>
+    <li>
+        <strong>
+            <a href="http://www.omdbapi.com/?i=<%=movie["imdbID"]%>&plot=full&apikey=thewdb">
+                <%= movie["Title"] %>
+            </a>
+        </strong>
+            - <%=movie["Year"]%>
+		<div class="right">
+		<a href= "http://www.omdbapi.com/?i=<%=movie["imdbID"]%>&plot=full&apikey=thewdb"><img class="movieImg" src="http://img.omdbapi.com/?i=<%=movie["imdbID"]%>&plot=full&apikey=thewdb"></a>
+		</div>
+		<br>
+        </li>
+<% }) %>
+</ul>
+
+<form action="/">
+    <input type="submit" class="btn btn-sm btn-primary" value="Search again" />
+</form>
+
+<% include ../partials/footer %>

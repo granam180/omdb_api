@@ -2,7 +2,7 @@
   z-index: 1;
   position: relative;
   /* text-align: center; */
-  padding-top: 25vh;
+  padding-top: 30vh;
   width: 100%
 }
 
@@ -23,6 +23,23 @@
 .searchPage {
 	width: 15em;
 	margin: 25px auto;
+}
+
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.grid-item {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    flex: 0 0 300px;
+}
+
+.results {
+	margin-top: 2rem;
 }
 
 /* iPhone */

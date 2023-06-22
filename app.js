@@ -1,44 +1,87 @@
 const express = require("express");
 const app = express();
-const fetch = require("node-fetch");
-app.set("view engine", "ejs");
+// const request = require("request");
+const axios = require("axios");
+const path = require('path');
+// const fetch = require("node-fetch");
+require('dotenv').config();
 
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(path.join(__dirname, 'public'))) // dirname refers to the directory that this script is running
 
+app.set("view engine", "ejs");  // sends rendered view of `/views` to the client
+app.set('views', path.join(__dirname, '/views'))
+
+// SEARCH!
 app.get("/", function(req, res) {
-  res.render("search");
+    res.render("search"); //search.ejs
+	// res.send("This is the search page!"); //search.ejs
 });
 
-//results?search=something 'key value pair'
-app.get("/results", (req, res) => {
-  var query = req.query.search;
-  var url = "http://www.omdbapi.com/?s=" + query + "&apikey=thewdb";
-// var urli = "http://www.omdbapi.com/?i=" + query + "&apikey=thewdb"; 
+// ALL RESULTS!
 
-/**
- * the fetch function is used to make the API request, 
- * and the response is handled using Promises. 
- * If the API request is successful and the response contains data, 
- * it is passed to the results view (results.ejs). 
- * If there is an error or no data in the response, an empty object is passed to the view
+// app.get("/results", (req, res) => { //results?search=something 'key value pair'
+    // res.send("Hello, it works!");
+    // const query = (req.query.search); //search req(uest)
+    // const url = "http://www.omdbapi.com/?s=" + query + "&apikey=" + process.env.OMDB_API_KEY;
+    // const urli = "http://www.omdbapi.com/?i=" + query + "&apikey=" + process.env.OMDB_API_KEY;
+
+	// ***** NPM REQUEST DEPRECIATED!!
+	// *******************************
+    // request(url, (error, response, body) => {
+    //     if(!error && response.statusCode == 200) {
+    //         const data = JSON.parse(body);
+    //         //res.send(data["Search"][3]["Title"]);
+    //         res.render("results", {data: data}); //results.ejs
+    //     } else {
+	// 		res.render("/results")
+	// 	}
+    // });
+    app.get("/results", async (req, res) => {
+        const query = req.query.search;
+        const url = `http://www.omdbapi.com/?s=${query}&apikey=${process.env.OMDB_API_KEY}`;
+      
+        try {
+          const response = await axios.get(url);
+          const data = response.data;
+      
+          if (data.Response === "True") {
+            const movies = data.Search || [];
+            const movieDetails = [];
+      
+            for (const movie of movies) {
+              const imdbID = movie.imdbID;
+              const movieUrl = `http://www.omdbapi.com/?i=${imdbID}&apikey=${process.env.OMDB_API_KEY}`;
+              const movieResponse = await axios.get(movieUrl);
+              const movieData = movieResponse.data;
+              movieDetails.push(movieData);
+            }
+      
+            res.render("results", { data: movieDetails });
+          } else {
+            res.render("results", { data: [] });
+          }
+        } catch (error) {
+          res.render("results", { data: [] });
+        }
+      });
+      
+
+
+app.listen(3000, () => {
+	console.log("MOVIE APP HAS STARTED!");
+});
+
+/** DEPLOYING TO HEROKU
+ *  
+ * Create a Procfile -- needed by Heroku to declare what command should be executed to start the app
+ * heroku login
+ * heroku create
+ * git init
+ * heroku git:remote -a omdb-api
+ * git add .
+ * git commit -am "inital commit"
+ * git push heroku master
+ * 
+ * Check for error `heroku logs --tail`
+ * 
  */
-
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      if (data && data["Search"]) {
-        res.render("results", { data: data });
-        console.log(data)
-      } else {
-        res.render("results", { data: {} });
-      }
-    })
-    .catch(error => {
-      console.log(error);
-      res.render("results", { data: {} });
-    });
-});
-
-app.listen(process.env.PORT || 3000, () => {
-  console.log("MOVIE APP HAS STARTED!");
-});

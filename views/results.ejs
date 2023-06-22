@@ -1,34 +1,42 @@
-<% include ../partials/header %>
+<%- include('../partials/header') %>
 
 <div class="flex results">
   <div class="text-center">
-    <h1>Movies Database!!!</h1>
+    <div class="search-header">
+    <h1 class="inline-title">Movies Database!!!</h1>
     <form action="/">
-      <input type="submit" class="btn btn-sm btn-primary" value="Search again" />
+      <input type="submit" class="btn btn-sm btn-primary inline-search" value="Search again" />
     </form>
+  </div>
   </div>
 
   <div class="grid-container">
-    <% if (data["Search"]) { %>
-      <% data["Search"].forEach(function(movie) { -%>
-      <div class="grid-item">
-        <a href="http://img.omdbapi.com/?i=<%=movie["imdbID"]%>&apikey=thewdb" target="_blank">
-          <strong><%= movie["Title"] %></strong>
-        </a>
-        - <%=movie["Year"]%> <%= movie["Plot"] %>
-        <div class="right">
-          <!-- <a href="http://img.omdbapi.com/?i=<%=movie["imdbID"]%>&apikey=thewdb" target="_blank"> -->
-            <a href="<%=movie["Poster"]%>" target="_blank">
-            <!-- <img class="movieImg" src="http://img.omdbapi.com/?i=<%=movie["imdbID"]%>&plot=full&apikey=thewdb"> -->
-            <img class="movieImg" src="<%=movie["Poster"]%>">
-          </a>
-          <!-- <a href="http://www.omdbapi.com/?i=<%=movie["imdbID"]%>&plot=short&apikey=thewdb">
-            <img class="movieImg" src="http://img.omdbapi.com/?i=<%=movie["imdbID"]%>&plot=short&apikey=thewdb">
-          </a>           -->
+    <% if (data) { %>
+      <% data.forEach(function(movie) { %>
+        <div class="grid-item">
+          <div>
+            <div class="right">
+              <a href="<%= movie.Poster %>" target="_blank">
+                <img class="movieImg" src="<%= movie.Poster %>">
+              </a>
+              <h5>
+              <a href="http://img.omdbapi.com/?i=<%=movie.imdbID%>&apikey=thewdb" target="_blank">
+                <strong><%= movie.Title %></strong>
+              </a>
+              - <%= movie.Year %></h5> <%= movie.Plot %>              
+            </div>
+            <br>            
+            <h3><%= movie.Title %> Details:</h3>
+            <p>Actors: <%= movie.Actors %></p>
+            <p>Awards: <%= movie.Awards %></p>
+            <p>BoxOffice: <%= movie.BoxOffice %></p>
+            <p>Country: <%= movie.Country %></p>
+            <p>Director: <%= movie.Director %></p>
+            <p>Genre: <%= movie.Genre %></p>
+            <p>Language: <%= movie.Language %></p>
+            <p>Production: <%= movie.Production %></p>
+          </div>
         </div>
-        <p></p>
-        <br>
-      </div>
       <% }) %>
     <% } else { %>
       <p>No movies found.</p>
@@ -36,4 +44,4 @@
   </div>
 </div>
 
-<% include ../partials/footer %>
+<%- include('../partials/footer') %>

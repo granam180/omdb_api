@@ -1,20 +1,4 @@
-<% include ../partials/header %>
-
-<!-- <div class="row main-header">
-    <h1 style="text-align: center">Movie Search</h1>
-    <div style=	"width: 30%; margin: 25px auto">
-        <form action="/results" method="GET">
-            <div class="form-group">
-                <input class="form-control" type="text" placeholder="search term" name="search">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block">Submit</button>
-            </div>
-        </form>
-        <a href="/">Go Back</a>
-    </div>
-</div> -->
-
+<%- include('../partials/header') %>
 
 <div class="row">
 	<div class="main-header">
@@ -23,24 +7,24 @@
 		<div class="searchPage">
 			<form action="/results" method="GET" _lpchecked="1">
 				<div class="form-group">
-					<input class="form-control title mt-2" type="text" aria-describedby="movieTitle" placeholder="Title" name="search">
+					<input class="form-control title" type="text" aria-describedby="movieTitle" placeholder="Title" name="search">
 					<small id="movieTitle" class="form-text text-muted">Search by title</small>
 				</div>
 
 				<div class="form-group">
-					<input class="form-control year mt-2" type="text" aria-describedby="movieYear" placeholder="Year" name="search">
+					<input class="form-control year" type="text" aria-describedby="movieTitle" placeholder="Year" name="search">
 					<small id="movieYear" class="form-text text-muted">Search by year</small>
 				</div>
-			
 
 				<div class="form-group">
-					<button class="btn btn-lg btn-primary btn-block mt-2">Submit</button>
+					<button class="btn btn-lg btn-primary btn-block">Submit</button>
 				</div>
 			</form>
-			<!-- <p>DISCLAIMER: <br>Make sure there's <strong>NO SPACE</strong> at the end of your search before submitting. Thanks</p> -->
+			<p>DISCLAIMER: <br>Make sure there's <strong>NO SPACE</strong> at the end of your search before submitting. Thanks</p>
 		</div>
+
 	</div>
 </div>
 
 
-<% include ../partials/footer %>
+<%- include('../partials/footer') %>

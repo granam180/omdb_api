@@ -5,27 +5,26 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "build": "echo 'Nothing to build for this app.'"
+    "start": "node app.js"
   },
   "author": "Joey Bonneville",
-  "license": "ISC",
-  "dependencies": {
-    "ejs": "^2.7.4",
-    "express": "^4.17.1",
-    "node": "^14.4.0",
-    "node-fetch": "^2.6.0",
-    "request": "^2.88.2"
-  },
-  "devDependencies": {
-    "dotenv": "^16.0.3"
-  },
+  "license": "MIT",
   "keywords": [
-    "render",
     "omdb_api",
     "example"
   ],
-  "engines": {
-    "node": "14.x"
+  "engines": {},
+  "devDependencies": {
+    "dotenv": "^16.3.1",
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "node": "^20.2.0",
+    "node-fetch": "^3.3.1",
+    "request": "^2.88.2",
+    "serverless-http": "^3.2.0"
   }
 }

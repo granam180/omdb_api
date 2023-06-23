@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+// request deprecated
 // const request = require("request");
 const axios = require("axios");
 const path = require('path');
@@ -38,13 +39,27 @@ app.get("/", function(req, res) {
     // });
     app.get("/results", async (req, res) => {
         const query = req.query.search;
+        
         const url = `http://www.omdbapi.com/?s=${query}&apikey=${process.env.OMDB_API_KEY}`;
       
         try {
           const response = await axios.get(url);
           const data = response.data;
+
+          /**
+           * another API request is made for each movie using its imdbID 
+           * `http://www.omdbapi.com/?i=${imdbID}` instead of `?s=${imdbID}`
+           * The complete movie details are then added to the movieDetails array. 
+           * Finally, the results.ejs template is rendered with the movieDetails 
+           * array as the data parameter
+          */
       
           if (data.Response === "True") {
+          /**
+          * If the API response indicates that the search was successful 
+          * (data.Response === "True"), it retrieves the movie details by 
+          * making individual API requests for each movie using their IMDb ID.
+          */
             const movies = data.Search || [];
             const movieDetails = [];
       

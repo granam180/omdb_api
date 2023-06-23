@@ -23,10 +23,13 @@
               <a href="http://img.omdbapi.com/?i=<%=movie.imdbID%>&apikey=thewdb" target="_blank">
                 <strong><%= movie.Title %></strong>
               </a>
-              - <%= movie.Year %></h5> <%= movie.Plot %>              
+              - <%= movie.Year %>
+            </h5> <%= movie.Plot %>              
             </div>
-            <br>            
+            <hr>     
+            <section class="card p-4">
             <h3><%= movie.Title %> Details:</h3>
+            <h6><%= movie.Runtime %></h6>
             <p>Actors: <%= movie.Actors %></p>
             <p>Awards: <%= movie.Awards %></p>
             <p>BoxOffice: <%= movie.BoxOffice %></p>
@@ -35,6 +38,7 @@
             <p>Genre: <%= movie.Genre %></p>
             <p>Language: <%= movie.Language %></p>
             <p>Production: <%= movie.Production %></p>
+          </section> 
           </div>
         </div>
       <% }) %>

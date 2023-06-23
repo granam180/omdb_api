@@ -34,7 +34,8 @@
   .grid-item {
 	  margin: 10px;
 	  padding: 10px;
-	  border: 1px solid #ccc;
+	  border: 2px solid #ccc;
+	  border-radius: 11px;
 	  flex: 0 0 300px;
   }
   

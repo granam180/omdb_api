@@ -45,14 +45,6 @@ app.get("/", function(req, res) {
         try {
           const response = await axios.get(url);
           const data = response.data;
-
-          /**
-           * another API request is made for each movie using its imdbID 
-           * `http://www.omdbapi.com/?i=${imdbID}` instead of `?s=${imdbID}`
-           * The complete movie details are then added to the movieDetails array. 
-           * Finally, the results.ejs template is rendered with the movieDetails 
-           * array as the data parameter
-          */
       
           if (data.Response === "True") {
           /**
@@ -66,11 +58,19 @@ app.get("/", function(req, res) {
             for (const movie of movies) {
               const imdbID = movie.imdbID;
               const movieUrl = `http://www.omdbapi.com/?i=${imdbID}&apikey=${process.env.OMDB_API_KEY}`;
+          /**
+           * another API request is made for each movie using its imdbID id
+           * `http://www.omdbapi.com/?i=${imdbID}` instead of `?s=${imdbID}`
+           * The complete movie details are then added to the movieDetails array. 
+          */              
               const movieResponse = await axios.get(movieUrl);
               const movieData = movieResponse.data;
               movieDetails.push(movieData);
             }
-      
+            /**
+             * Finally, the results.ejs template is rendered with the movieDetails 
+             * array as the data parameter
+             */
             res.render("results", { data: movieDetails });
           } else {
             res.render("results", { data: [] });
